@@ -125,23 +125,6 @@ h3 {
   font-weight: 700;
 }
 
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 34px;
-}
-
-.button.is-dark {
-  background: var(--ink);
-}
-
-.button.is-light {
-  color: var(--ink);
-  background: #eef2f6;
-}
-
 .metrics-strip {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -454,11 +437,6 @@ pre {
 @media (max-width: 560px) {
   .topbar-inner {
     padding: 0 16px;
-  }
-
-  .hero-actions .button {
-    width: 100%;
-    max-width: 220px;
   }
 
   .metrics-strip div {
