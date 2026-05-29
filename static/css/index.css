@@ -125,11 +125,6 @@ h3 {
   font-weight: 700;
 }
 
-.affiliations {
-  margin-bottom: 24px;
-  color: var(--muted);
-}
-
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
