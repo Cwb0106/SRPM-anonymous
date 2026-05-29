@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Anonymous project page for SRPM: Spatial Rehearsal and Persistent Memory via Latent Space for Whole-Body Mobile Manipulation.">
+  <meta name="keywords" content="mobile manipulation, whole-body coordination, spatial rehearsal, persistent memory, imitation learning, robotics">
+  <meta property="og:title" content="SRPM: Spatial Rehearsal and Persistent Memory via Latent Space">
+  <meta property="og:description" content="An anonymous academic project page for whole-body mobile manipulation.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="static/images/pipeline.png">
+
+  <title>SRPM: Spatial Rehearsal and Persistent Memory via Latent Space</title>
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+</head>
+
+<body>
+  <nav class="topbar" aria-label="Primary navigation">
+    <div class="topbar-inner">
+      <a class="brand" href="#top">SRPM</a>
+      <div class="nav-links">
+        <a href="#abstract">Abstract</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#videos">Videos</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="hero-section">
+      <div class="container is-max-desktop hero-inner">
+        <p class="venue">Anonymous Submission</p>
+        <h1>SRPM: Spatial Rehearsal and Persistent Memory via Latent Space for Whole-Body Mobile Manipulation</h1>
+        <p class="authors">Anonymous Authors</p>
+        <p class="affiliations">Affiliations withheld for double-blind review</p>
+
+        <div class="hero-actions">
+          <a class="button is-dark is-rounded" href="static/pdfs/paper.pdf" target="_blank" rel="noopener">
+            <span class="icon"><i class="fas fa-file-pdf"></i></span>
+            <span>Paper</span>
+          </a>
+          <a class="button is-light is-rounded" href="#videos">
+            <span class="icon"><i class="fas fa-video"></i></span>
+            <span>Videos</span>
+          </a>
+        </div>
+
+        <div class="metrics-strip" aria-label="Key results">
+          <div>
+            <strong>75.8%</strong>
+            <span>MS-HAB mean success</span>
+          </div>
+          <div>
+            <strong>+18.8%</strong>
+            <span>Simulation gain over SOTA</span>
+          </div>
+          <div>
+            <strong>+13.8%</strong>
+            <span>Real-world gain over baseline</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section first-figure">
+      <div class="container is-max-widescreen">
+        <figure class="figure-block teaser-figure">
+          <img src="static/images/real_world.png" alt="Real-world whole-body mobile manipulation tasks and success-rate comparison.">
+          <figcaption>
+            SRPM is evaluated on whole-body mobile manipulation tasks that require the base and arm to act together, including open drawer, clean table, mobile pick, and box pick-and-place.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section soft-section" id="abstract">
+      <div class="container is-max-desktop">
+        <h2>Abstract</h2>
+        <div class="content paper-text">
+          <p>
+            Compared to tabletop tasks with fixed bases and cameras, mobile manipulation faces significant whole-body coordination challenges. Any mismatch between mobile base and arm movements is amplified through the robot's kinematic chain, leading to significant execution errors. Moreover, frequent viewpoint changes caused by base motion disrupt the policy's perceptual consistency, making it difficult for the robot to stay focused on the target. We propose <strong>SRPM</strong>, a latent-space Spatial Rehearsal and Persistent Memory framework for whole-body mobile manipulation. SRPM introduces Cascaded Predictive Coordination to explicitly model hierarchical base-arm dependencies, Spatial Rehearsal to anticipate base-motion-induced changes in latent 3D geometry, and Latent Intention Memory to maintain target consistency under occlusions and rapid viewpoint shifts. Extensive simulation and real-world experiments show that SRPM achieves 18.8% and 13.8% gains over state-of-the-art methods, respectively.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="method">
+      <div class="container is-max-widescreen">
+        <div class="section-heading">
+          <h2>Method</h2>
+          <p>SRPM combines cascaded base-to-arm prediction, spatial rehearsal, and persistent latent memory for coordinated mobile manipulation.</p>
+        </div>
+
+        <figure class="figure-block">
+          <img src="static/images/pipeline.png" alt="Overview of the SRPM pipeline.">
+          <figcaption>
+            Overview of SRPM. The mobility branch predicts base intentions from 2D observations and local maps. These intentions condition a manipulation branch through Latent Intention Memory and Spatial Rehearsal, enabling arm prediction in a base-motion-aware latent reference frame.
+          </figcaption>
+        </figure>
+
+        <div class="method-grid">
+          <article>
+            <h3>Cascaded Predictive Coordination</h3>
+            <p>
+              SRPM first predicts coarse-grained base actions and then conditions fine-grained arm actions on the latent mobility intention, making the manipulation branch aware of planned base motion.
+            </p>
+          </article>
+          <article>
+            <h3>Spatial Rehearsal</h3>
+            <p>
+              Instead of hallucinating future states, SRPM applies deterministic geometric transformations induced by base motion and aligns rehearsed point-cloud features with transformed 3D references.
+            </p>
+          </article>
+          <article>
+            <h3>Persistent Memory</h3>
+            <p>
+              Latent Intention Memory retrieves and consolidates historical mobility intentions, allowing the policy to maintain target consistency during occlusion, target loss, and large viewpoint changes.
+            </p>
+          </article>
+        </div>
+
+        <div class="two-column-figures">
+          <figure class="figure-block compact">
+            <img src="static/images/spatial_rehearsal.png" alt="Spatial rehearsal process.">
+            <figcaption>Spatial Rehearsal models base-induced point-cloud transformations before planning fine-grained arm motion.</figcaption>
+          </figure>
+          <figure class="figure-block compact">
+            <img src="static/images/memory.png" alt="Latent Intention Memory mechanism.">
+            <figcaption>Latent Intention Memory retrieves historical context when the target becomes unreliable or temporarily invisible.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft-section" id="results">
+      <div class="container is-max-widescreen">
+        <div class="section-heading">
+          <h2>Results</h2>
+          <p>SRPM improves mobile manipulation success in simulation and real-world experiments.</p>
+        </div>
+
+        <figure class="figure-block">
+          <img src="static/images/mshab.png" alt="MS-HAB benchmark task visualization.">
+          <figcaption>
+            MS-HAB benchmark tasks include pick/place, opening, and closing behaviors across room-scale workspaces. Red boxes indicate target objects and cyan trajectories show mobile-base movement.
+          </figcaption>
+        </figure>
+
+        <div class="table-wrap" role="region" aria-label="MS-HAB simulation results" tabindex="0">
+          <table>
+            <caption>MS-HAB Simulation Results, Success Rate (%)</caption>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Pick Apple</th>
+                <th>Place Apple</th>
+                <th>Open Door</th>
+                <th>Pick Bowl</th>
+                <th>Place Bowl</th>
+                <th>Open Drawer</th>
+                <th>Close Drawer</th>
+                <th>Mean</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>DP</td><td>9.0</td><td>57.7</td><td>67.2</td><td>20.1</td><td>67.7</td><td>27.5</td><td>91.0</td><td>48.6</td></tr>
+              <tr><td>ACT*</td><td>35.4</td><td>44.4</td><td>67.2</td><td><strong>66.7</strong></td><td>37.6</td><td>34.4</td><td>88.4</td><td>53.4</td></tr>
+              <tr><td>AC-DiT</td><td>33.3</td><td>33.3</td><td>90.7</td><td>36.0</td><td>17.0</td><td>81.3</td><td>97.3</td><td>55.6</td></tr>
+              <tr><td>DSPv2*</td><td>15.3</td><td>70.4</td><td>77.8</td><td>55.0</td><td><strong>85.7</strong></td><td>40.7</td><td><strong>98.4</strong></td><td>63.3</td></tr>
+              <tr class="ours"><td>SRPM</td><td><strong>36.5</strong></td><td><strong>80.1</strong></td><td>83.6</td><td>65.6</td><td>83.1</td><td><strong>84.7</strong></td><td>96.8</td><td><strong>75.8</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">* denotes modality-aligned baseline variants. The table shows representative rows from the paper for readability.</p>
+
+        <div class="result-panels">
+          <figure class="figure-block compact">
+            <img src="static/images/lim_vis.png" alt="Visualization of Latent Intention Memory under target loss.">
+            <figcaption>LIM helps the policy recover target focus after wrist-view target loss and drastic camera movement.</figcaption>
+          </figure>
+          <div class="ablation-panel">
+            <h3>Ablation Study</h3>
+            <table>
+              <thead>
+                <tr><th>Variant</th><th>Mean</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Basic</td><td>58.6</td></tr>
+                <tr><td>Basic + 3D</td><td>61.6</td></tr>
+                <tr><td>Basic + 3D + CAP</td><td>63.7</td></tr>
+                <tr><td>Basic + 3D + CPC</td><td>68.4</td></tr>
+                <tr class="ours"><td>Basic + 3D + CPC + LIM</td><td><strong>70.6</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="videos">
+      <div class="container is-max-widescreen">
+        <div class="section-heading">
+          <h2>Videos</h2>
+          <p>Supplementary real-world demonstrations for the four whole-body mobile manipulation tasks.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-slot">
+            <video controls preload="metadata">
+              <source src="static/videos/open_drawer.mp4" type="video/mp4">
+            </video>
+            <h3>Open Drawer</h3>
+          </div>
+          <div class="video-slot">
+            <video controls preload="metadata">
+              <source src="static/videos/clean_table.mp4" type="video/mp4">
+            </video>
+            <h3>Clean Table</h3>
+          </div>
+          <div class="video-slot">
+            <video controls preload="metadata">
+              <source src="static/videos/mobile_pick.mp4" type="video/mp4">
+            </video>
+            <h3>Mobile Pick</h3>
+          </div>
+          <div class="video-slot">
+            <video controls preload="metadata">
+              <source src="static/videos/box_pick_place.mp4" type="video/mp4">
+            </video>
+            <h3>Box Pick &amp; Place</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container is-max-desktop has-text-centered">
+      <p>This anonymous project page was prepared for double-blind review.</p>
+    </div>
+  </footer>
+</body>
+</html>
